@@ -1,0 +1,61 @@
+unit backend.Model.DAO;
+
+interface
+
+uses
+  System.JSON,
+  REST.Json,
+  SimpleInterface,
+  SimpleDAO,
+  SimpleAttributes,
+  SimpleQueryFiredac,
+  Data.DB,
+  DataSet.Serialize,
+  FireDAC.Stan.Intf,
+  FireDAC.Stan.Option,
+  FireDAC.Stan.Param,
+  FireDAC.Stan.Error,
+  FireDAC.DatS,
+  FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf,
+  FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client;
+
+type
+  iDAOGeneric<T : class> = interface
+    ['{1DAE62A0-0C6E-4FA6-BF9E-2377A25F267C}']
+    function Find : TJsonArray; overload;
+    function Find (const aID : String ) : TJsonObject; overload;
+    function Insert (const aJsonObject : TJsonObject) : TJsonObject;
+    function Update (const aJsonObject : TJsonObject) : TJsonObject;
+    function Delete (aField : String; aValue : String) : TJsonObject;
+    function DAO : ISimpleDAO<T>;
+    function DataSetAsJsonArray : TJsonArray;
+    function DataSetAsJsonObject : TJsonObject;
+    function DataSetToStream : String;
+  end;
+
+  TDAOGeneric<T : class, constructor> = class(TInterfacedObject, iDAOGeneric<T>)
+  private
+    FIndexConn : Integer;
+    FConn : iSimpleQuery;
+    FDAO : iSimpleDAO<T>;
+    FDataSource : TDataSource;
+  public
+    constructor Create;
+    destructor Destroy; override;
+    class function New : iDAOGeneric<T>;
+    function Find : TJsonArray; overload;
+    function Find (const aID : String ) : TJsonObject; overload;
+    function Insert (const aJsonObject : TJsonObject) : TJsonObject;
+    function Update (const aJsonObject : TJsonObject) : TJsonObject;
+    function Delete (aField : String; aValue : String) : TJsonObject;
+    function DAO : ISimpleDAO<T>;
+    function DataSetAsJsonArray : TJsonArray;
+    function DataSetAsJsonObject : TJsonObject;
+    function DataSetToStream : String;
+  end;
+
+implementation
+
+end.

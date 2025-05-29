@@ -1,0 +1,17 @@
+{
+	"name": "catalogovideos",
+	"description": "",
+	"version": "1.0.0",
+	"homepage": "",
+	"mainsrc": "src",
+	"projects": [],
+	"dependencies": {
+		"github.com/academiadocodigo/simpleorm": "^2.02.09",
+		"github.com/bittencourtthulio/horse-paginate": "^1.0.0",
+		"github.com/gabrielbaltazar/gbjson": "^1.0.10",
+		"github.com/hashload/horse": "^3.0.1",
+		"github.com/hashload/horse-cors": "^1.0.5",
+		"github.com/hashload/jhonson": "^1.1.4",
+		"github.com/viniciussanchez/dataset-serialize": "^v2.4.0"
+	}
+}

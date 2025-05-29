@@ -1,0 +1,24 @@
+unit backend.Controller.Interfaces;
+
+interface
+
+uses
+  backend.Model.DAO,
+  backend.Model.Entity.Categories;
+
+type
+  iControllerEntity<T : class> = interface;
+
+  iController = interface
+    function Categories : iControllerEntity<TCategories>;
+  end;
+
+  iControllerEntity<T : class> = interface
+    ['{2946F86E-5DB6-4DDD-9C5D-948FB20D51A8}']
+    function This : iDAOGeneric<T>;
+    function &End : iController;
+  end;
+
+implementation
+
+end.

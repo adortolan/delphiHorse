@@ -1,0 +1,68 @@
+unit backend.Model.Entity.Categories;
+
+interface
+
+uses
+  SimpleAttributes;
+
+type
+  [Tabela('Categories')]
+  TCategories = class
+  private
+    FName: String;
+    FIs_Active: Boolean;
+    FID: String;
+    FDescription: String;
+    procedure setDescription(const Value: String);
+    procedure setID(const Value: String);
+    procedure setIs_Active(const Value: Boolean);
+    procedure setName(const Value: String);
+  public
+    constructor Create;
+    destructor Destroy;override;
+    [Campo('ID'), PK]
+    property Id: String read FID write setID;
+    [Campo('Name')]
+    property Name: String read FName write setName;
+    [Campo('Description')]
+    property Description: String read FDescription write setDescription;
+    [Campo('Is_Active')]
+    property IsActive: SmallInt read FIs_Active write setIs_Active;
+  end;
+
+implementation
+
+{ TCategories }
+
+constructor TCategories.Create;
+begin
+
+end;
+
+destructor TCategories.Destroy;
+begin
+
+  inherited;
+end;
+
+procedure TCategories.setDescription(const Value: String);
+begin
+  FDescription := Value;
+end;
+
+procedure TCategories.setID(const Value: String);
+begin
+  FID := Value;
+end;
+
+procedure TCategories.setIs_Active(const Value: Boolean);
+begin
+  FIs_Active := Value;
+end;
+
+procedure TCategories.setName(const Value: String);
+begin
+  FName := Value;
+end;
+
+end.

@@ -1,0 +1,69 @@
+unit backend.Model.Entity.Genres;
+
+interface
+
+uses
+  SimpleAttributes;
+
+type
+  [Tabela('Genres')]
+  TGenres = class
+  private
+    FName: String;
+    FID: String;
+    FDescription: String;
+    FIsactive: smallint;
+    procedure setDescription(const Value: String);
+    procedure setID(const Value: String);
+    procedure setIsactive(const Value: smallint);
+    procedure setName(const Value: String);
+
+  public
+    constructor Create;
+    destructor Destroy;override;
+    [Campo('ID'), PK]
+    property Id: String read FID write setID;
+    [Campo('Name')]
+    property Name: String read FName write setName;
+    [Campo('Description')]
+    property Description: String read FDescription write setDescription;
+    [Campo('Isactive')]
+    property Isactive: smallint read FIsactive write setIsactive;
+  end;
+
+implementation
+
+{ TGenres }
+
+constructor TGenres.Create;
+begin
+
+end;
+
+destructor TGenres.Destroy;
+begin
+
+  inherited;
+end;
+
+procedure TGenres.setDescription(const Value: String);
+begin
+  FDescription := Value;
+end;
+
+procedure TGenres.setID(const Value: String);
+begin
+  FID := Value;
+end;
+
+procedure TGenres.setIsactive(const Value: smallint);
+begin
+  FIsactive := Value;
+end;
+
+procedure TGenres.setName(const Value: String);
+begin
+  FName := Value;
+end;
+
+end.

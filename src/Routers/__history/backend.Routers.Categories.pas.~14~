@@ -1,0 +1,117 @@
+unit backend.Routers.Categories;
+
+interface
+
+uses
+  System.JSON,
+  Horse,
+  Horse.Jhonson,
+  Horse.CORS,
+  backend.Controller;
+
+  procedure Registry;
+
+implementation
+
+uses
+  System.Classes,
+  backend.Controller.Interfaces,
+  System.SysUtils,
+  //ServerHorse.Utils,
+  Horse.Paginate,
+  backend.Model.Entity.Categories,
+  backend.Utils;
+
+procedure Registry;
+begin
+  THorse
+  .Use(Paginate)
+  .Use(Jhonson)
+  .Use(CORS)
+
+  .Get('/Categories',
+    procedure(Req: THorseRequest; Res: THorseResponse; Next: TProc)
+    var
+      iController: iControllerEntity<TCategories>;
+    begin
+      iController := TController.New.Categories;
+      iController.This
+        .DAO
+          .SQL
+            .Where(TServerUtils.New.LikeFind(Req))
+            .OrderBy(TServerUtils.New.OrderByFind(Req))
+          .&End
+        .Find(False);
+
+      Res.Send<TJsonArray>(iController.This.DataSetAsJsonArray);
+    end
+  )
+
+  .Get('/Categories/:ID',
+    procedure(Req: THorseRequest; Res: THorseResponse; Next: TProc)
+    var
+      iController: iControllerEntity<TCategories>;
+    begin
+      iController := TController.New.Categories;
+      iController.This
+        .DAO
+          .SQL
+            .Where('ID = ' + QuotedStr(Req.Params['ID']))
+          .&End
+        .Find(False);
+
+      Res.Send<TJSonArray>(iController.This.DataSetAsJsonArray);
+    end
+  )
+
+  .Post('/Categories',
+    procedure(Req: THorseRequest; Res: THorseResponse; Next: TProc)
+    var
+      vBody: TJsonObject;
+      aGuuid: string;
+    begin
+      vBody := TJSONObject.ParseJSONValue(Req.Body) as TJSONObject;
+
+      try
+        if not vBody.TryGetValue<String>('id', aGuuid) then
+          vBody.AddPair('id', TServerUtils.New.AdjustGuuid(TGUID.NewGuid.ToString()));
+        TController.New.Categories.This.Insert(vBody);
+        Res.Status(200).Send<TJSONObject>(vBody);
+      except
+        Res.Status(500).Send('');
+      end;
+    end
+  )
+
+  .Put('/Categories/:ID',
+    procedure(Req: THorseRequest; Res: THorseResponse; Next: TProc)
+    var
+      vBody: TJsonObject;
+      aGuuid: string;
+    begin
+      vBody := TJSONObject.ParseJSONValue(Req.Body) as TJSONObject;
+
+      try
+        if not vBody.TryGetValue<String>('id', aGuuid) then
+          vBody.AddPair('id',Req.Params['ID']);
+        TController.New.Categories.This.Update(vBody);
+        Res.Status(200).Send<TJSONObject>(vBody);
+      except
+        Res.Status(500).Send('');
+      end;
+    end )
+
+  .Delete('/Categories/:ID',
+    procedure(Req: THorseRequest; Res: THorseResponse; Next: TProc)
+    begin
+      try
+        TController.New.Categories.This.Delete('id', QuotedStr(Req.Params['id']));
+        Res.Status(200).Send('');
+      except
+        Res.Status(500).Send('');
+      end;
+    end )
+
+end;
+
+end.

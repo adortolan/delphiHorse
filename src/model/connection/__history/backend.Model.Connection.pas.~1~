@@ -1,0 +1,40 @@
+unit backend.Model.Connection;
+
+interface
+
+uses
+  System.JSON,
+  System.Generics.Collections,
+  FireDAC.Stan.Intf,
+  FireDAC.Stan.Option,
+  FireDAC.Stan.Error,
+  FireDAC.UI.Intf,
+  FireDAC.Phys.Intf,
+  FireDAC.Stan.Def,
+  FireDAC.Stan.Pool,
+  FireDAC.Stan.Async,
+  FireDAC.Phys,
+  Data.DB,
+  FireDAC.Comp.Client,
+  Firedac.DApt,
+  Firedac.Phys.FB,
+  Firedac.Phys.SQLite,
+  Firedac.Phys.SQLiteDef,
+  Firedac.Phys.FBDef,
+  Firedac.Phys.MySQLDef,
+  Firedac.Phys.MySQL,
+  FireDAC.VCLUI.Wait,
+  FireDAC.Comp.UI;
+
+var
+  FDriver: TFDPhysMYSQLDriverLink;
+  FConnlist: TObjectList<TFDConnection>;
+
+  function Connected: Integer;
+  procedure Disconnected(IndexConn: Integer);
+
+implementation
+
+function Connected
+
+end.

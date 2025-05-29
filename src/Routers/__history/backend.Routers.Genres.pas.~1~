@@ -1,0 +1,33 @@
+unit backend.Routers.Genres;
+
+interface
+
+uses
+  System.JSON,
+  Horse,
+  Horse.Jhonson,
+  Horse.CORS,
+  backend.Controller;
+
+  procedure Registry;
+
+implementation
+
+uses
+  System.Classes,
+  backend.Controller.Interfaces,
+  System.SysUtils,
+  Horse.Paginate,
+  backend.Model.Entity.Genres,
+  backend.Utils;
+
+procedure Registry;
+begin
+  .Get('/Genres',
+    procedure(Req: THorse)
+  )
+
+
+end;
+
+end.

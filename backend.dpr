@@ -1,0 +1,25 @@
+program backend;
+
+{$APPTYPE CONSOLE}
+
+{$R *.res}
+
+uses
+  Horse,
+  backend.Model.Connection in 'src\model\connection\backend.Model.Connection.pas',
+  backend.Model.DAO in 'src\model\DAO\backend.Model.DAO.pas',
+  backend.Model.Entity.Categories in 'src\model\Entity\backend.Model.Entity.Categories.pas',
+  backend.Controller.Generic in 'src\Controller\backend.Controller.Generic.pas',
+  backend.Controller.Interfaces in 'src\Controller\backend.Controller.Interfaces.pas',
+  backend.Controller in 'src\Controller\backend.Controller.pas',
+  backend.Routers.Categories in 'src\Routers\backend.Routers.Categories.pas',
+  backend.Utils in 'src\Utils\backend.Utils.pas',
+  backend.Model.Entity.Genres in 'src\model\Entity\backend.Model.Entity.Genres.pas',
+  backend.Routers.Genres in 'src\Routers\backend.Routers.Genres.pas';
+
+begin
+  backend.Routers.Categories.Registry;
+  backend.Routers.Genres.Registry;
+
+  THorse.Listen(9000);
+end.

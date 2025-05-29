@@ -1,0 +1,47 @@
+unit backend.Controller;
+
+interface
+
+uses
+  backend.Controller.Interfaces, backend.Model.Entity.Categories;
+
+type
+  TController = class(TInterfacedObject, iController)
+  private
+    FCategories: iControllerEntity<TCategories>;
+  public
+    constructor Create;
+    destructor Destroy;
+    function Categories : iControllerEntity<TCategories>;
+    class function New: iController;
+  end;
+
+implementation
+
+{ TController }
+
+uses backend.Controller.Generic;
+
+function TController.Categories: iControllerEntity<TCategories>;
+begin
+  if not Assigned(FCategories) then
+    FCategories := TControllerGeneric<TCategories>.New(Self);
+  Result := FCategories;
+end;
+
+constructor TController.Create;
+begin
+
+end;
+
+destructor TController.Destroy;
+begin
+
+end;
+
+class function TController.New: iController;
+begin
+  Result := Self.Create;
+end;
+
+end.
